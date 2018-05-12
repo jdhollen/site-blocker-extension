@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>blocked sites</title>
+    <style>
+      body {
+        margin: 2em;
+      }
+      textarea {
+        height: 30em;
+        width: 20em;
+      }
+
+      .summary {
+        width: 40em;
+        margin-bottom: 2em;
+      }
+
+      .inputContainer {
+        display: inline-block;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="summary">
+      enter sites to block, one domain per line.  no wildcard support, but
+      "example.com" will block all subdomains.  also, "com" would block all .com
+      websites, if you really wanted to do that.  blank lines will be ignored.
+    </div>
+    <div class="inputContainer">
+      <div>sites to block during work (9-5)</div>
+      <textarea id="work"></textarea>
+    </div>
+    <div class="inputContainer">
+      <div>sites to block 24/7</div>
+      <textarea id="always"></textarea>
+    </div>
+    <div>
+      <button id="save">save</button>
+      <span id="status"></span>
+    </div>
+    <script src="options.js"></script>
+  </body>
+</html>

@@ -1,0 +1,17 @@
+{
+  "name": "Site Blocker",
+  "version": "0.1",
+  "description": "You name the site, and this extension blocks it for you.",
+  "permissions": [
+    "storage",
+    "webRequest",
+    "webRequestBlocking",
+    "*://*/*"
+  ],
+  "background": {
+      "scripts": ["background.js"],
+      "persistent": true
+  },
+  "options_page": "options.html",
+  "manifest_version": 2
+}
