@@ -1,6 +1,5 @@
 // Loads options from chrome.storage.
-function load_options() {
-  // Use default value color = 'red' and likesColor = true.
+function loadOptions() {
   chrome.storage.sync.get({
     work: '',
     always: ''
@@ -11,7 +10,7 @@ function load_options() {
 }
 
 // Saves options to chrome.storage.
-function save_options() {
+function saveOptions() {
   // No validation--this is just for my own use.
   var work = document.getElementById('work').value;
   var always = document.getElementById('always').value;
@@ -28,5 +27,5 @@ function save_options() {
   });
 }
 
-document.addEventListener('DOMContentLoaded', load_options);
-document.getElementById('save').addEventListener('click', save_options);
+document.addEventListener('DOMContentLoaded', loadOptions);
+document.getElementById('save').addEventListener('click', saveOptions);
