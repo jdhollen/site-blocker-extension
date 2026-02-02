@@ -5,12 +5,12 @@
 function loadOptions() {
   chrome.storage.sync.get(
     {
-      work: '',
-      always: '',
+      allow: '',
+      block: '',
     },
     (items) => {
-      document.getElementById('work').value = items.work;
-      document.getElementById('always').value = items.always;
+      document.getElementById('allow').value = items.allow;
+      document.getElementById('block').value = items.block;
     },
   );
 }
@@ -18,16 +18,43 @@ function loadOptions() {
 /** Saves options to chrome.storage. */
 function saveOptions() {
   // No validation--this is just for my own use.
-  const work = document.getElementById('work').value;
-  const always = document.getElementById('always').value;
+  const allow = document.getElementById('allow').value;
+  const block = document.getElementById('block').value;
   chrome.storage.sync.set(
-    { work, always },
+    { allow, block },
     () => {
       // Update status to let user know options were saved.
       const status = document.getElementById('status');
       status.textContent = 'saved!';
-      chrome.declarativeNetRequest.getDynamicRules().then((r) => {
-        newRules = always.split('\n').map(value => value.trim()).filter((v) => v != "").map((t, i) => {return {
+      newBlockRules = block.split('\n').map(value => value.trim()).filter((v) => v != "").map((t, i) => {return {
+        action: {
+          type: "redirect",
+          redirect: {
+            url: 'data:text/html;base64,ICA8IURPQ1RZUEUgaHRtbD4NCiAgPGh0bWw+PGhlYWQ+PHRpdGxlPk5JQ0UgVFJZPC90aXRsZT48L2hlYWQ+PGJvZHk+PHNwYW4gc3R5bGU9ImZvbnQtZmFjZTogYm9sZDsgZm9udC1zaXplOiAzMGVtOyI+Tk9QRTwvc3Bhbj48L2JvZHk+PC9odG1sPg=='
+          }
+        },
+        condition: {
+          urlFilter: "*://*" + t + "*/*",
+          resourceTypes: ["main_frame"]
+        },
+        id: i+1
+      }});
+      newAllowRules = allow.split('\n').map(value => value.trim()).filter((v) => v != "").map((t, i) => {return {
+        action: {
+          type: "allow",
+        },
+        priority: 2,
+        condition: {
+          urlFilter: "*://*" + t + "*/*",
+          resourceTypes: ["main_frame"]
+        },
+        id: newBlockRules.length+i+1
+      }});
+
+      if (newAllowRules.length > 0) {
+        newAllowRules.push({
+          id: newAllowRules.length + newBlockRules.length + 1,
+          priority: 1,
           action: {
             type: "redirect",
             redirect: {
@@ -35,13 +62,15 @@ function saveOptions() {
             }
           },
           condition: {
-            urlFilter: "*://*" + t + "*/*",
+            urlFilter: "*",
             resourceTypes: ["main_frame"]
-          },
-          id: i+1
-        }});
+          }
+        })
+      }
+
+      chrome.declarativeNetRequest.getDynamicRules().then((r) => {
         const oldIds = r.map((v) => v.id)
-        chrome.declarativeNetRequest.updateDynamicRules({addRules: newRules, removeRuleIds: oldIds})
+        chrome.declarativeNetRequest.updateDynamicRules({addRules: [...newBlockRules, ...newAllowRules], removeRuleIds: oldIds})
       });
 
       setTimeout(() => { status.textContent = ''; }, 750);
