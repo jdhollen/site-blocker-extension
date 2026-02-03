@@ -30,7 +30,7 @@ function saveOptions() {
         action: {
           type: "redirect",
           redirect: {
-            url: 'data:text/html;base64,ICA8IURPQ1RZUEUgaHRtbD4NCiAgPGh0bWw+PGhlYWQ+PHRpdGxlPk5JQ0UgVFJZPC90aXRsZT48L2hlYWQ+PGJvZHk+PHNwYW4gc3R5bGU9ImZvbnQtZmFjZTogYm9sZDsgZm9udC1zaXplOiAzMGVtOyI+Tk9QRTwvc3Bhbj48L2JvZHk+PC9odG1sPg=='
+            extensionPath: "/nope.html"
           }
         },
         priority: 3,
@@ -58,9 +58,7 @@ function saveOptions() {
           priority: 1,
           action: {
             type: "redirect",
-            redirect: {
-              url: 'data:text/html;base64,ICA8IURPQ1RZUEUgaHRtbD4NCiAgPGh0bWw+PGhlYWQ+PHRpdGxlPk5JQ0UgVFJZPC90aXRsZT48L2hlYWQ+PGJvZHk+PHNwYW4gc3R5bGU9ImZvbnQtZmFjZTogYm9sZDsgZm9udC1zaXplOiAzMGVtOyI+Tk9QRTwvc3Bhbj48L2JvZHk+PC9odG1sPg=='
-            }
+            redirect: { "extensionPath": "/nope.html" }
           },
           condition: {
             urlFilter: "*",

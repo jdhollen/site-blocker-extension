@@ -9,6 +9,10 @@
   "host_permissions": [
     "*://*/*"
   ],
+  "web_accessible_resources": [{
+    "resources": ["nope.html"],
+    "matches": ["*"]
+  }],
   "options_page": "options.html",
   "manifest_version": 3
 }
