@@ -33,8 +33,9 @@ function saveOptions() {
             url: 'data:text/html;base64,ICA8IURPQ1RZUEUgaHRtbD4NCiAgPGh0bWw+PGhlYWQ+PHRpdGxlPk5JQ0UgVFJZPC90aXRsZT48L2hlYWQ+PGJvZHk+PHNwYW4gc3R5bGU9ImZvbnQtZmFjZTogYm9sZDsgZm9udC1zaXplOiAzMGVtOyI+Tk9QRTwvc3Bhbj48L2JvZHk+PC9odG1sPg=='
           }
         },
+        priority: 3,
         condition: {
-          urlFilter: "*://*" + t + "*/*",
+          urlFilter: "||"+t,
           resourceTypes: ["main_frame"]
         },
         id: i+1
@@ -45,7 +46,7 @@ function saveOptions() {
         },
         priority: 2,
         condition: {
-          urlFilter: "*://*" + t + "*/*",
+          urlFilter: "||" + t,
           resourceTypes: ["main_frame"]
         },
         id: newBlockRules.length+i+1
